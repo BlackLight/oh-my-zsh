@@ -80,9 +80,9 @@ prompt_git() {
     dirty=$(parse_git_dirty)
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git show-ref --head -s --abbrev |head -n1 2> /dev/null)"
     if [[ -n $dirty ]]; then
-      prompt_segment yellow black
+      prompt_segment 88 white
     else
-      prompt_segment green black
+      prompt_segment 236 white
     fi
 
     if [[ -e "${repo_path}/BISECT_LOG" ]]; then
@@ -118,11 +118,11 @@ prompt_hg() {
         st='±'
       elif [[ -n $(hg prompt "{status|modified}") ]]; then
         # if any modification
-        prompt_segment yellow black
+        prompt_segment 88 black
         st='±'
       else
         # if working copy is clean
-        prompt_segment green black
+        prompt_segment 236 white
       fi
       echo -n $(hg prompt "☿ {rev}@{branch}") $st
     else
@@ -133,10 +133,10 @@ prompt_hg() {
         prompt_segment red black
         st='±'
       elif `hg st | grep -q "^[MA]"`; then
-        prompt_segment yellow black
+        prompt_segment 88 black
         st='±'
       else
-        prompt_segment green black
+        prompt_segment 236 white
       fi
       echo -n "☿ $rev@$branch" $st
     fi
@@ -145,14 +145,14 @@ prompt_hg() {
 
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment blue black '%~'
+  prompt_segment 234 white '%~'
 }
 
 # Virtualenv: current working virtualenv
 prompt_virtualenv() {
   local virtualenv_path="$VIRTUAL_ENV"
   if [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
-    prompt_segment blue black "(`basename $virtualenv_path`)"
+    prompt_segment 234 white "(`basename $virtualenv_path`)"
   fi
 }
 
